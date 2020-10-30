@@ -1,3 +1,5 @@
+from Crypto.Util import number
+
 def gcd(a, b):
     return a if (b == 0) else gcd(b, a % b)
 
@@ -16,3 +18,6 @@ def powmod(a, b, p):
 
 def inversmod(a, p):
     return powmod(a, p-2, p)
+
+def getPrimeNbit(n):
+    return number.getPrime(n)
