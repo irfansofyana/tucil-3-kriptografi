@@ -27,7 +27,7 @@ class ElgamalEncryptForm(tk.Frame):
         self.OUTPUT_ROW = 7
         self.EXECUTE_ROW  = 8
 
-        self.DEFAULT_OUTPUT_NAME = 'encryption_result'
+        self.DEFAULT_OUTPUT_NAME = ''
         self.message_dir = tk.StringVar()
         self.message_dir.set('')
 
@@ -116,13 +116,17 @@ class ElgamalEncryptForm(tk.Frame):
             key = self.setup_key(key.split(' '))
 
             elgamal = Elgamal(256, key)
-            encrypted = elgamal.encrypt(message)
-            print(encrypted)
+            results = elgamal.encrypt(message)
+            results = {**results, "file_output": output_filename}
 
             if (output_filename != ''):
-                write_file(output_filename, encrypted)
+                output_filename = f"./test-data/encrypted/{output_filename}.txt"
+                write_file(output_filename, results["encrypted"])
             
-            # Change to EndPage goes below
+            title = 'Elgamal Encryption'
+            tipe = 'elgamal_encryption'
+
+            self.controller.show_end_frame(title, tipe, results)
         except Exception as e:
             print("Error occured when encrypt using Elgamal!")
             print(e)

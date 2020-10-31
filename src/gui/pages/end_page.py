@@ -40,12 +40,13 @@ class EndPage(tk.Frame):
 
             output_frame = hg.create_frame(self, 3)
             if (file_output != ''):
-                hg.create_label(output_frame, f"Saved to file {file_output}!", 0, 0)
+                hg.create_label(output_frame, f"Saved to test-data/encrypted/{file_output}.txt!", 0, 0)
             else:
-                hg.create_label(output_frame, message, 0, 0)
+                hg.create_label(output_frame, "Encryption Result", 0, 0)
+                hg.create_text(output_frame, message, 10, 70, 1, 0)
             
-            hg.create_label(output_frame, f"Time execution is {execution_time}", 1, 0)
-            hg.create_label(output_frame, f"File size is ...", 2, 0)
+            hg.create_label(output_frame, f"Time execution is {execution_time}", 12, 0)
+            hg.create_label(output_frame, f"File size is ...", 13, 0)
         
         back_frame = hg.create_frame(self, 6)
         hg.create_button(back_frame, 'Back', lambda: self.controller.show_frame("StartPage"), 0, 0)

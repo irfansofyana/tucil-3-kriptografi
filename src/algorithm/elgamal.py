@@ -65,7 +65,10 @@ class Elgamal():
         for cipher in ciphers:
             encrypted_str += str(cipher[0]) + ' ' + str(cipher[1]) + ' '
         
-        return encrypted_str
+        return {
+            "encrypted": encrypted_str,
+            "execution_time": 0
+        }
 
     def decrypt(self, ciphertext):
         plaintext = []
@@ -85,7 +88,10 @@ class Elgamal():
         decrypted_str = self.decode(plaintext)
         decrypted_str = "".join([ch for ch in decrypted_str if (ch != '\x00')])
 
-        return decrypted_str
+        return {
+            "decrypted": decrypted_str,
+            "execution_time": 0
+        }
 
     def save_key(self, is_public, filename):
         filename += '.pub' if is_public else '.pri'
@@ -94,17 +100,10 @@ class Elgamal():
         write_file(filename, self.key[key_type]) 
 
 # if (__name__=="__main__"):
-    # plaintext = "this is only a plaintext for testing encode and decode"
-    # elgamal = Elgamal(num_bits = 256)
-    # encoded = elgamal.encode(plaintext)
-    # print(encoded)
-    # decoded = elgamal.decode(encoded)
-    # print(decoded)
+#     plaintext = "irfan"
+#     elgamal = Elgamal(256, '')
+#     encrypted = elgamal.encrypt(plaintext)
+#     print(encrypted["encrypted"])
 
-    # elgamal = Elgamal(num_bits = 256)
-    # plaintext = "irfan sofyana putra adalah orang yang mengerjakan tugas bagian ini gan. Duh kok masih ada tugas padahal long weekend"
-    # encrypted = elgamal.encrypt(plaintext)
-
-    # print(encrypted)
-    # decrypted = elgamal.decrypt(encrypted)
-    # print(decrypted)
+#     decrypted = elgamal.decrypt(encrypted["encrypted"])
+#     print(decrypted["decrypted"])
