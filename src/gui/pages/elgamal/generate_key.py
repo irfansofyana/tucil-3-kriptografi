@@ -55,9 +55,20 @@ class ElgamalKeyForm(tk.Frame):
         try:
             if (public_name == '' or private_name == ''):
                 return
-            elgamal = Elgamal(256, '')
-            print(elgamal.key)
             
+            elgamal = Elgamal(256, '')
+            key = elgamal.key
+
+            results = {
+                **key,
+                'execution_time': 10,
+                'public_name': public_name,
+                'private_name': private_name
+            }
+            tipe = 'elgamal_key'
+            title = 'Elgamal Key Generator'
+            
+            self.controller.show_end_frame(title, tipe, results)
         except Exception as e:
             print('Error occured when generate key using Elgamal!')
             print(e)

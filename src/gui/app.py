@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from src.gui.pages.start_page import StartPage
+from src.gui.pages.end_page import EndPage
 from src.gui.pages.elgamal.encrypt_form import ElgamalEncryptForm
 from src.gui.pages.elgamal.generate_key import ElgamalKeyForm
 
@@ -28,8 +29,13 @@ class App(tk.Tk):
         frame = self.frames[page_name]
         frame.tkraise()
 
-    def show_end_frame(self, title, stegano_type, file_dir, psnr):
-        frame = EndPage(parent=self.container, controller=self,
-                        title=title, stegano_type=stegano_type, file_dir=file_dir, psnr=psnr)
+    def show_end_frame(self, title, tipe, results):
+        frame = EndPage(
+            parent=self.container, 
+            controller=self,
+            title = title,
+            tipe = tipe,
+            results = results
+        )
         frame.configure(bg='white')
         frame.grid(row=0, column=0, sticky="nsew")
