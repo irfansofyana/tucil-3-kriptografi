@@ -4,9 +4,9 @@ import random
 import math
 
 class Elgamal():
-    def __init__(self, num_bits):
+    def __init__(self, num_bits, key):
         self.num_bits = num_bits
-        self.key = self.generate_key()
+        self.key = key if (len(key) > 0) else self.generate_key()
     
     def encode(self, plaintext):
         bytes_array = bytearray(plaintext, 'utf-16')
@@ -93,7 +93,7 @@ class Elgamal():
 
         write_file(filename, self.key[key_type]) 
 
-if (__name__=="__main__"):
+# if (__name__=="__main__"):
     # plaintext = "this is only a plaintext for testing encode and decode"
     # elgamal = Elgamal(num_bits = 256)
     # encoded = elgamal.encode(plaintext)

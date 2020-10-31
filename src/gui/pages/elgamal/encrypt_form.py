@@ -1,6 +1,8 @@
 import tkinter as tk
 import tkinter.filedialog as fd
 import src.utils.gui as hg
+from src.utils.file import *
+from src.algorithm.elgamal import Elgamal
 
 class ElgamalEncryptForm(tk.Frame):
     def __init__(self, parent, controller):
@@ -51,7 +53,7 @@ class ElgamalEncryptForm(tk.Frame):
     
     def render_text_key_frame(self):
         t_key_frame = hg.create_frame(self, self.TEXT_KEY_ROW + 2)
-        hg.create_label(t_key_frame, 'or write your key down here: (format: r g p)', 0, 0)
+        hg.create_label(t_key_frame, 'or write your key down here: (format: y g p)', 0, 0)
         self.text_key = hg.create_text(t_key_frame, '', 2, 70, 1, 0)
 
     def render_output_frame(self):
@@ -81,6 +83,16 @@ class ElgamalEncryptForm(tk.Frame):
         )
         self.key_dir.set(dialog)
     
+    def setup_key(self, key):
+        used_key = {
+            'public' : {
+                'y' : int(key[0]),
+                'g' : int(key[1]),
+                'p' : int(key[2])
+            }
+        }
+        return used_key
+
     def execute(self):
         print('> Message dir', self.message_dir.get())
         print('> Message text', self.text_message.get("1.0", "end-1c"))
@@ -93,12 +105,24 @@ class ElgamalEncryptForm(tk.Frame):
         key_text = self.text_key.get("1.0", "end-1c")
         output_filename = self.output_name.get()
 
-        # The algorithm goes below
         try:
             if (message_dir == '' and message_text == ''):
                 return
             if (key_dir == '' and key_text == ''):
                 return
+            
+            message = read_file(message_dir) if (message_dir != '') else message_text
+            key = read_file(key_dir) if (key_dir != '') else key_text
+            key = self.setup_key(key.split(' '))
+
+            elgamal = Elgamal(256, key)
+            encrypted = elgamal.encrypt(message)
+            print(encrypted)
+
+            if (output_filename != ''):
+                write_file(output_filename, encrypted)
+            
+            # Change to EndPage goes below
         except Exception as e:
             print("Error occured when encrypt using Elgamal!")
             print(e)
