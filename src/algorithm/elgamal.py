@@ -6,7 +6,7 @@ import math
 class Elgamal():
     def __init__(self, num_bits):
         self.num_bits = num_bits
-        self.key = self.generate_key(self.num_bits)
+        self.key = self.generate_key()
     
     def encode(self, plaintext):
         bytes_array = bytearray(plaintext, 'utf-16')
@@ -39,8 +39,8 @@ class Elgamal():
         decoded_text = bytearray(b for b in bytes_array).decode('utf-16')
         return decoded_text
 
-    def generate_key(self, num_bits=256):
-        p = getPrimeNbit(num_bits)
+    def generate_key(self):
+        p = getPrimeNbit(self.num_bits)
         g = random.randint(1, p-1)
         x = random.randint(1, p-2)
         y = powmod(g, x, p)
