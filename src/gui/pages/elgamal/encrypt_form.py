@@ -87,5 +87,18 @@ class ElgamalEncryptForm(tk.Frame):
         print('> Key dir', self.key_dir.get())
         print('> Key text', self.text_key.get("1.0", "end-1c"))
         print('> Output filename', self.output_name.get())
+        message_dir = self.message_dir.get()
+        message_text = self.text_message.get("1.0", "end-1c")
+        key_dir = self.key_dir.get()
+        key_text = self.text_key.get("1.0", "end-1c")
+        output_filename = self.output_name.get()
 
         # The algorithm goes below
+        try:
+            if (message_dir == '' and message_text == ''):
+                return
+            if (key_dir == '' and key_text == ''):
+                return
+        except Exception as e:
+            print("Error occured when encrypt using Elgamal!")
+            print(e)
