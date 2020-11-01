@@ -53,7 +53,7 @@ class ElgamalDecryptForm(tk.Frame):
     
     def render_text_key_frame(self):
         t_key_frame = hg.create_frame(self, self.TEXT_KEY_ROW + 2)
-        hg.create_label(t_key_frame, 'or write your key down here: (format: y g p)', 0, 0)
+        hg.create_label(t_key_frame, 'or write your key down here: (format: x p)', 0, 0)
         self.text_key = hg.create_text(t_key_frame, '', 2, 70, 1, 0)
 
     def render_output_frame(self):
