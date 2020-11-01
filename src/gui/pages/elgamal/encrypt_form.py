@@ -120,7 +120,7 @@ class ElgamalEncryptForm(tk.Frame):
             results = {**results, "file_output": output_filename}
 
             if (output_filename != ''):
-                output_filename = f"./test-data/encrypted/{output_filename}.txt"
+                output_filename = f"./output/encrypted/{output_filename}.txt"
                 write_file(output_filename, results["encrypted"])
             
             title = 'Elgamal Encryption'
