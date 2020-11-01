@@ -117,15 +117,17 @@ class RSADecryptForm(tk.Frame):
             if (message_dir != '' and output_filename == ''):
                 return
 
-            message = read_file(message_dir) if (
-                message_dir != '') else message_text
+            message = read_file(message_dir) if (message_dir != '') else message_text
             key = read_file(key_dir) if (key_dir != '') else key_text
             key = self.setup_key(key.split(' '))
 
             rsa = RSA(256, key)
             results = rsa.decrypt(message)
-            results = {**results, "file_output": output_filename,
-                       "message_dir": message_dir}
+            results = {
+                **results, 
+                "file_output": output_filename,
+                "message_dir": message_dir
+            }
 
             if (output_filename != ''):
                 output_filename = f"./output/decrypted/{output_filename}.txt"

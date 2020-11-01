@@ -44,7 +44,7 @@ class EndPage(tk.Frame):
             pri_output = results['private_name']
 
             hg.create_label(output_frame, "Public Key (format: e n)", 0, 0)
-            public_key = f"{pub_key['e']} {pub_key['n']}"
+            public_key = f"{pub_key['n']} {pub_key['e']}"
             hg.create_text(output_frame, public_key, 5, 70, 1, 0)
             hg.create_button(output_frame, 'Save Public Key!', lambda: self.save_key(
                 True, pub_output, public_key, "rsa"), 6, 0)
