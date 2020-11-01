@@ -128,7 +128,7 @@ class RSAEncryptForm(tk.Frame):
                        "message_dir": message_dir}
 
             if (output_filename != ''):
-                output_filename = f"./output/encrypted/{output_filename}.txt"
+                output_filename = f"./output/encrypted/rsa/{output_filename}.txt"
                 write_file(output_filename, results["encrypted"])
 
             title = 'RSA Encryption'

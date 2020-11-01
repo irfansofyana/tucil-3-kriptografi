@@ -62,7 +62,6 @@ class Elgamal():
         y, g, p = self.key['public'].values()
 
         for val in encoded:
-            print('val', val)
             k = random.randint(1, p-2)
             a = powmod(g, k, p)
             b = ((val % p) * powmod(y, k, p)) % p
@@ -112,15 +111,3 @@ class Elgamal():
         key_type = 'public' if is_public else 'private'
 
         write_file(filename, self.key[key_type])
-
-
-if (__name__ == "__main__"):
-    plaintext = "irfan"
-    elgamal = Elgamal(256, '')
-    encrypted = elgamal.encrypt(plaintext)
-    print(encrypted["encrypted"])
-    print(encrypted["execution_time"])
-
-    decrypted = elgamal.decrypt(encrypted["encrypted"])
-    print(decrypted["decrypted"])
-    print(decrypted["execution_time"])

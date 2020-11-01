@@ -70,27 +70,28 @@ class EndPage(tk.Frame):
             message_dir = results['message_dir']
             result_message = 'Encryption Result' if (
                 path_type == 'encrypted') else 'Decryption Result'
+            algo_type = 'rsa' if ('rsa' in tipe) else 'elgamal'
 
             output_frame = hg.create_frame(self, 3)
             if (message_dir != ''):
                 hg.create_label(
-                    output_frame, f"Saved to output/{path_type}/{file_output}.txt!", 0, 0)
+                    output_frame, f"Saved to output/{path_type}/{algo_type}/{file_output}.txt!", 0, 0)
                 hg.create_label(
                     output_frame, f"Time execution is {execution_time}", 12, 0)
                 abs_path = get_abs_path(
-                    f"output/{path_type}/{file_output}.txt")
+                    f"output/{path_type}/{algo_type}/{file_output}.txt")
                 file_size = get_file_size(abs_path)
                 hg.create_label(
                     output_frame, f"File size is {file_size}", 13, 0)
             elif (message_dir == '' and file_output != ''):
                 hg.create_label(
-                    output_frame, f"Saved to output/{path_type}/{file_output}.txt!", 2, 0)
+                    output_frame, f"Saved to output/{path_type}/{algo_type}/{file_output}.txt!", 2, 0)
                 hg.create_label(output_frame, result_message, 3, 0)
                 hg.create_text(output_frame, message, 8, 70, 4, 0)
                 hg.create_label(
                     output_frame, f"Time execution is {execution_time}", 12, 0)
                 abs_path = get_abs_path(
-                    f"output/{path_type}/{file_output}.txt")
+                   f"output/{path_type}/{algo_type}/{file_output}.txt")
                 file_size = get_file_size(abs_path)
                 hg.create_label(
                     output_frame, f"File size is {file_size}", 13, 0)

@@ -130,7 +130,7 @@ class RSADecryptForm(tk.Frame):
             }
 
             if (output_filename != ''):
-                output_filename = f"./output/decrypted/{output_filename}.txt"
+                output_filename = f"./output/decrypted/rsa/{output_filename}.txt"
                 write_file(output_filename, results["decrypted"])
 
             title = 'RSA Decryption'

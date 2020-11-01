@@ -105,14 +105,3 @@ class RSA():
 
         write_file(filename, self.key[key_type])
 
-
-# if (__name__ == "__main__"):
-#     plaintext = "irfan sofyana putra"
-#     rsa = RSA(256, '')
-#     encrypted = rsa.encrypt(plaintext)
-#     print('Hasil Enkripsi: ', encrypted["encrypted"])
-#     print(encrypted["execution_time"])
-
-#     decrypted = rsa.decrypt(encrypted["encrypted"])
-#     print('Hasil Dekripsi: ', decrypted["decrypted"])
-#     print(decrypted["execution_time"])
