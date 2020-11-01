@@ -1,7 +1,7 @@
 import tkinter as tk
 import src.utils.gui as hg
 
-from src.utils.file import write_file
+from src.utils.file import write_file, get_file_size, get_abs_path
 
 class EndPage(tk.Frame):
     def __init__(self, parent, controller, title, tipe, results):
@@ -41,12 +41,14 @@ class EndPage(tk.Frame):
             output_frame = hg.create_frame(self, 3)
             if (file_output != ''):
                 hg.create_label(output_frame, f"Saved to test-data/encrypted/{file_output}.txt!", 0, 0)
+                hg.create_label(output_frame, f"Time execution is {execution_time}", 12, 0)
+                abs_path = get_abs_path(f"test-data/encrypted/{file_output}.txt")
+                file_size = get_file_size(abs_path)
+                hg.create_label(output_frame, f"File size is {file_size}", 13, 0)
             else:
                 hg.create_label(output_frame, "Encryption Result", 0, 0)
                 hg.create_text(output_frame, message, 10, 70, 1, 0)
-            
-            hg.create_label(output_frame, f"Time execution is {execution_time}", 12, 0)
-            hg.create_label(output_frame, f"File size is ...", 13, 0)
+                hg.create_label(output_frame, f"Time execution is {execution_time}", 12, 0)
         
         back_frame = hg.create_frame(self, 6)
         hg.create_button(back_frame, 'Back', lambda: self.controller.show_frame("StartPage"), 0, 0)
