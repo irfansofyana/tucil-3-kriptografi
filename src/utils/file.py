@@ -1,3 +1,5 @@
+import os
+
 def read_file_as_binary(filename):
     try:
         with open(filename, "rb") as f:
@@ -25,4 +27,18 @@ def write_file(filename, content):
         f = open(filename, "w")
         f.write(content)
     except Exception as e:
-        print(str(e)) 
+        print(str(e))
+
+def get_file_size(filename):
+    try:
+        file_stats = os.stat(filename)
+        return f"{file_stats.st_size} bytes"
+    except Exception as e:
+        print(str(e))
+
+def get_abs_path(filename):
+    try:
+        abs_path = os.path.abspath(filename)
+        return abs_path
+    except Exception as e:
+        print(str(e))
