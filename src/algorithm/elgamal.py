@@ -2,6 +2,8 @@ from src.utils.math import *
 from src.utils.file import *
 import random
 import math
+import time
+from timeit import default_timer as timer
 
 class Elgamal():
     def __init__(self, num_bits, key):
@@ -51,6 +53,8 @@ class Elgamal():
         return {'public': public_key, 'private': private_key}
 
     def encrypt(self, plaintext):
+        st_time = timer()
+    
         encoded = self.encode(plaintext)
         ciphers = []
         y, g, p = self.key['public'].values()
@@ -65,12 +69,16 @@ class Elgamal():
         for cipher in ciphers:
             encrypted_str += str(cipher[0]) + ' ' + str(cipher[1]) + ' '
         
+        end_time = timer()
+        execution_time = "{:.20f}".format((end_time - st_time))
+
         return {
             "encrypted": encrypted_str,
-            "execution_time": 0
+            "execution_time": f"{execution_time} seconds"
         }
 
     def decrypt(self, ciphertext):
+        st_time = timer()
         plaintext = []
         ciphers_array = ciphertext.split()
         x, p = self.key['private'].values()
@@ -88,9 +96,12 @@ class Elgamal():
         decrypted_str = self.decode(plaintext)
         decrypted_str = "".join([ch for ch in decrypted_str if (ch != '\x00')])
 
+        end_time = timer()
+        execution_time = "{:.20f}".format((end_time - st_time))
+
         return {
             "decrypted": decrypted_str,
-            "execution_time": 0
+            "execution_time": f"{execution_time} seconds"
         }
 
     def save_key(self, is_public, filename):
@@ -104,6 +115,8 @@ class Elgamal():
 #     elgamal = Elgamal(256, '')
 #     encrypted = elgamal.encrypt(plaintext)
 #     print(encrypted["encrypted"])
+#     print(encrypted["execution_time"])
 
 #     decrypted = elgamal.decrypt(encrypted["encrypted"])
 #     print(decrypted["decrypted"])
+#     print(decrypted["execution_time"])
