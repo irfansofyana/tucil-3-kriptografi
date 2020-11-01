@@ -20,7 +20,3 @@ class DiffieHellman():
     
     def save_key(self, filename):
         write_file(filename, self.session_key)
-
-# if (__name__=="__main__"):
-#     d = DiffieHellman(17, 2, 5, 7)
-#     print(d.session_key)
