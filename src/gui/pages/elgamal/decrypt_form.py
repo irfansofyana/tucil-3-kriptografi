@@ -116,7 +116,7 @@ class ElgamalDecryptForm(tk.Frame):
 
             elgamal = Elgamal(256, key)
             results = elgamal.decrypt(message)
-            results = {**results, "file_output": output_filename}
+            results = {**results, "file_output": output_filename, "message_dir": message_dir}
 
             if (output_filename != ''):
                 output_filename = f"./output/decrypted/{output_filename}.txt"

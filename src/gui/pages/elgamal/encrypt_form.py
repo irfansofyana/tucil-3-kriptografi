@@ -58,7 +58,7 @@ class ElgamalEncryptForm(tk.Frame):
 
     def render_output_frame(self):
         output_frame = hg.create_frame(self, self.OUTPUT_ROW + 1)
-        hg.create_label(output_frame, 'Output file\'s name (if using file):', 0, 0)
+        hg.create_label(output_frame, 'Output file\'s name (if using file it\'s requirement):', 0, 0)
         hg.create_label(output_frame, '.txt', 1, 1)
         self.output_name = hg.create_entry(
             output_frame, self.DEFAULT_OUTPUT_NAME, 1, 0
@@ -117,7 +117,7 @@ class ElgamalEncryptForm(tk.Frame):
 
             elgamal = Elgamal(256, key)
             results = elgamal.encrypt(message)
-            results = {**results, "file_output": output_filename}
+            results = {**results, "file_output": output_filename, "message_dir": message_dir}
 
             if (output_filename != ''):
                 output_filename = f"./output/encrypted/{output_filename}.txt"
