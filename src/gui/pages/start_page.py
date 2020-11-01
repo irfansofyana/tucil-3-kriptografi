@@ -36,7 +36,7 @@ class StartPage(tk.Frame):
             lambda: controller.show_frame("ElgamalEncryptForm"),
             lambda: controller.show_frame("ElgamalDecryptForm"),
             lambda: controller.show_frame("ElgamalKeyForm"),
-            lambda: controller.show_frame("DiffieHelmanForm"),
+            lambda: controller.show_frame("DiffieHellmanForm"),
         ]
 
         index = 0

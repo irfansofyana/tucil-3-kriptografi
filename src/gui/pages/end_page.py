@@ -33,6 +33,12 @@ class EndPage(tk.Frame):
             private_key = f"{pri_key['x']} {pri_key['p']}"
             hg.create_text(output_frame, private_key, 5, 70, 8, 0)
             hg.create_button(output_frame, 'Save Public Key!', lambda: self.save_key(False, pri_output, private_key), 9, 0)
+        elif (tipe == 'diffie_hellman'):
+            output_frame = hg.create_frame(self, 3)
+            session_key = results['session_key']
+
+            hg.create_label(output_frame, "Generated Session Key:", 0, 0)
+            hg.create_text(output_frame, session_key, 5, 70, 1, 0)
         else:
             execution_time = results['execution_time']
             message = results['encrypted'] if ('encrypted' in results) else results['decrypted']

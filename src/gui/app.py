@@ -5,6 +5,7 @@ from src.gui.pages.end_page import EndPage
 from src.gui.pages.elgamal.encrypt_form import ElgamalEncryptForm
 from src.gui.pages.elgamal.decrypt_form import ElgamalDecryptForm
 from src.gui.pages.elgamal.generate_key import ElgamalKeyForm
+from src.gui.pages.diffie_hellman.generate_key import DiffieHellmanForm
 
 class App(tk.Tk):
     def __init__(self, *args, **kwargs):
@@ -16,7 +17,7 @@ class App(tk.Tk):
         self.container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (StartPage, ElgamalEncryptForm, ElgamalKeyForm, ElgamalDecryptForm):
+        for F in (StartPage, ElgamalEncryptForm, ElgamalKeyForm, ElgamalDecryptForm, DiffieHellmanForm):
             page_name = F.__name__
 
             frame = F(parent=self.container, controller=self)
