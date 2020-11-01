@@ -1,37 +1,8 @@
-# from src.utils.math import *
-# from src.utils.file import *
-from Crypto.Util import number
-import random
+from src.utils.math import *
+from src.utils.file import *
 import math
 import time
 from timeit import default_timer as timer
-
-
-def gcd(a, b):
-    return a if (b == 0) else gcd(b, a % b)
-
-
-def powmod(a, b, p):
-    res = 1
-    while (b > 0):
-        if (b & 1):
-            res = (res * a) % p
-        a *= a
-        a %= p
-        b >>= 1
-    return res
-
-
-def getPrimeNbit(n):
-    return number.getPrime(n)
-
-
-def generate_e(phin, num_bits):
-    e = getPrimeNbit(num_bits)
-    while (gcd(phin, e) != 1):
-        # while not coprime
-        e = getPrimeNbit(num_bits)
-    return e
 
 
 class RSA():
@@ -79,7 +50,7 @@ class RSA():
         # k = getPrimeNbit(self.num_bits)
 
         public_key = {'n': n, 'e': e}
-        private_key = {'d': powmod(e, phin-2, phin), 'n': n}
+        private_key = {'d': egcd(e, phin)[1], 'n': n}
 
         return {'public': public_key, 'private': private_key}
 
@@ -96,7 +67,7 @@ class RSA():
 
         encrypted_str = ""
         for cipher in ciphers:
-            encrypted_str += str(cipher)
+            encrypted_str += str(cipher) + ' '
 
         end_time = timer()
         execution_time = "{:.20f}".format((end_time - st_time))
@@ -115,8 +86,6 @@ class RSA():
         for i in range(len(ciphers_array)):
             plain = powmod(int(ciphers_array[i]), d, n)
             plaintext.append(plain)
-
-        print(plaintext)
 
         decrypted_str = self.decode(plaintext)
         decrypted_str = "".join([ch for ch in decrypted_str if (ch != '\x00')])

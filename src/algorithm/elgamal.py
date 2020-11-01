@@ -5,11 +5,12 @@ import math
 import time
 from timeit import default_timer as timer
 
+
 class Elgamal():
     def __init__(self, num_bits, key):
         self.num_bits = num_bits
         self.key = key if (len(key) > 0) else self.generate_key()
-    
+
     def encode(self, plaintext):
         bytes_array = bytearray(plaintext, 'utf-16')
         encoded = []
@@ -30,6 +31,7 @@ class Elgamal():
         byte_size = self.num_bits // 8
 
         for num in plaintext:
+            # print(num)
             for i in range(byte_size):
                 temp = num
                 for j in range(i+1, byte_size):
@@ -37,7 +39,7 @@ class Elgamal():
                 letter = temp // 2 ** (8 * i)
                 bytes_array.append(letter)
                 num -= (letter * (2 ** (8 * i)))
-        
+
         decoded_text = bytearray(b for b in bytes_array).decode('utf-16')
         return decoded_text
 
@@ -47,28 +49,29 @@ class Elgamal():
         x = random.randint(1, p-2)
         y = powmod(g, x, p)
 
-        public_key = { 'y' : y, 'g' : g, 'p' : p }
-        private_key = { 'x' : x, 'p' : p }
+        public_key = {'y': y, 'g': g, 'p': p}
+        private_key = {'x': x, 'p': p}
 
         return {'public': public_key, 'private': private_key}
 
     def encrypt(self, plaintext):
         st_time = timer()
-    
+
         encoded = self.encode(plaintext)
         ciphers = []
         y, g, p = self.key['public'].values()
 
         for val in encoded:
+            print('val', val)
             k = random.randint(1, p-2)
             a = powmod(g, k, p)
             b = ((val % p) * powmod(y, k, p)) % p
             ciphers.append([a, b])
-        
+
         encrypted_str = ""
         for cipher in ciphers:
             encrypted_str += str(cipher[0]) + ' ' + str(cipher[1]) + ' '
-        
+
         end_time = timer()
         execution_time = "{:.20f}".format((end_time - st_time))
 
@@ -85,14 +88,14 @@ class Elgamal():
 
         if (not len(ciphers_array) % 2 == 0):
             return "BAD Ciphertext found!, can't decrypt it!"
-        
+
         for i in range(0, len(ciphers_array), 2):
             a = int(ciphers_array[i])
             b = int(ciphers_array[i + 1])
             a = powmod(a, x, p)
             plain = (b * powmod(a, p-2, p)) % p
             plaintext.append(plain)
-        
+
         decrypted_str = self.decode(plaintext)
         decrypted_str = "".join([ch for ch in decrypted_str if (ch != '\x00')])
 
@@ -108,15 +111,16 @@ class Elgamal():
         filename += '.pub' if is_public else '.pri'
         key_type = 'public' if is_public else 'private'
 
-        write_file(filename, self.key[key_type]) 
+        write_file(filename, self.key[key_type])
 
-# if (__name__=="__main__"):
-#     plaintext = "irfan"
-#     elgamal = Elgamal(256, '')
-#     encrypted = elgamal.encrypt(plaintext)
-#     print(encrypted["encrypted"])
-#     print(encrypted["execution_time"])
 
-#     decrypted = elgamal.decrypt(encrypted["encrypted"])
-#     print(decrypted["decrypted"])
-#     print(decrypted["execution_time"])
+if (__name__ == "__main__"):
+    plaintext = "irfan"
+    elgamal = Elgamal(256, '')
+    encrypted = elgamal.encrypt(plaintext)
+    print(encrypted["encrypted"])
+    print(encrypted["execution_time"])
+
+    decrypted = elgamal.decrypt(encrypted["encrypted"])
+    print(decrypted["decrypted"])
+    print(decrypted["execution_time"])

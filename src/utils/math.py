@@ -46,3 +46,11 @@ def generate_e(phin, num_bits):
         # while not coprime
         e = getPrimeNbit(num_bits)
     return e
+
+
+def egcd(a, b):
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, y, x = egcd(b % a, a)
+        return (g, x - (b // a) * y, y)
