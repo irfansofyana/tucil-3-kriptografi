@@ -36,13 +36,14 @@ class EndPage(tk.Frame):
         else:
             execution_time = results['execution_time']
             message = results['encrypted'] if ('encrypted' in results) else results['decrypted']
+            path_type = 'encrypted' if ('encrypted' in results) else 'decrypted'
             file_output = results['file_output']
 
             output_frame = hg.create_frame(self, 3)
             if (file_output != ''):
-                hg.create_label(output_frame, f"Saved to test-data/encrypted/{file_output}.txt!", 0, 0)
+                hg.create_label(output_frame, f"Saved to test-data/{path_type}/{file_output}.txt!", 0, 0)
                 hg.create_label(output_frame, f"Time execution is {execution_time}", 12, 0)
-                abs_path = get_abs_path(f"test-data/encrypted/{file_output}.txt")
+                abs_path = get_abs_path(f"test-data/{path_type}/{file_output}.txt")
                 file_size = get_file_size(abs_path)
                 hg.create_label(output_frame, f"File size is {file_size}", 13, 0)
             else:

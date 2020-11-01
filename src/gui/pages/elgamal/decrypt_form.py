@@ -4,7 +4,7 @@ import src.utils.gui as hg
 from src.utils.file import *
 from src.algorithm.elgamal import Elgamal
 
-class ElgamalEncryptForm(tk.Frame):
+class ElgamalDecryptForm(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
@@ -36,13 +36,13 @@ class ElgamalEncryptForm(tk.Frame):
     
     def render_message_frame(self):
         message_frame = hg.create_frame(self, self.FILE_MESSAGE_ROW + 1)
-        hg.create_label(message_frame, 'Plaintext File', 0, 0)
+        hg.create_label(message_frame, 'Ciphertext File', 0, 0)
         hg.create_label(message_frame, self.message_dir, 0, 1, fix_text = False)
         hg.create_button(message_frame, 'Browse',  lambda: self.load_message_file(), 1, 0)
     
     def render_text_message_frame(self):
         t_message_frame = hg.create_frame(self, self.TEXT_MESSAGE_ROW + 2)
-        hg.create_label(t_message_frame, 'or write your plaintext down here:', 0, 0)
+        hg.create_label(t_message_frame, 'or write your ciphertext down here:', 0, 0)
         self.text_message = hg.create_text(t_message_frame, '', 10, 70, 1, 0)
 
     def render_key_frame(self):
@@ -79,16 +79,15 @@ class ElgamalEncryptForm(tk.Frame):
     
     def load_key_file(self):
         dialog = fd.askopenfilename(
-            filetypes=((".pub", "*.pub"),)
+            filetypes=((".pri", "*.pri"),)
         )
         self.key_dir.set(dialog)
     
     def setup_key(self, key):
         used_key = {
-            'public' : {
-                'y' : int(key[0]),
-                'g' : int(key[1]),
-                'p' : int(key[2])
+            'private' : {
+                'x' : int(key[0]),
+                'p' : int(key[1])
             }
         }
         return used_key
@@ -116,17 +115,17 @@ class ElgamalEncryptForm(tk.Frame):
             key = self.setup_key(key.split(' '))
 
             elgamal = Elgamal(256, key)
-            results = elgamal.encrypt(message)
+            results = elgamal.decrypt(message)
             results = {**results, "file_output": output_filename}
 
             if (output_filename != ''):
-                output_filename = f"./test-data/encrypted/{output_filename}.txt"
-                write_file(output_filename, results["encrypted"])
+                output_filename = f"./test-data/decrypted/{output_filename}.txt"
+                write_file(output_filename, results["decrypted"])
             
-            title = 'Elgamal Encryption'
-            tipe = 'elgamal_encryption'
+            title = 'Elgamal Decryption'
+            tipe = 'elgamal_decryption'
 
             self.controller.show_end_frame(title, tipe, results)
         except Exception as e:
-            print("Error occured when encrypt using Elgamal!")
+            print("Error occured when decrypt using Elgamal!")
             print(e)
