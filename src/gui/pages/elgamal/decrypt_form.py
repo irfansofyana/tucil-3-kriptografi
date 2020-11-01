@@ -109,6 +109,8 @@ class ElgamalDecryptForm(tk.Frame):
                 return
             if (key_dir == '' and key_text == ''):
                 return
+            if (message_dir != '' and output_filename == ''):
+                return
             
             message = read_file(message_dir) if (message_dir != '') else message_text
             key = read_file(key_dir) if (key_dir != '') else key_text
