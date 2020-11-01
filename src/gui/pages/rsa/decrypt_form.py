@@ -2,15 +2,14 @@ import tkinter as tk
 import tkinter.filedialog as fd
 import src.utils.gui as hg
 from src.utils.file import *
-from src.algorithm.elgamal import Elgamal
 
-class ElgamalDecryptForm(tk.Frame):
+class RSADecryptForm(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
         self.initialize()
 
-        hg.insert_header(self, 'Elgamal Decryption')
+        hg.insert_header(self, 'RSA Decryption')
         self.render_message_frame()
         self.render_text_message_frame()
         self.render_key_frame()
@@ -53,7 +52,7 @@ class ElgamalDecryptForm(tk.Frame):
     
     def render_text_key_frame(self):
         t_key_frame = hg.create_frame(self, self.TEXT_KEY_ROW + 2)
-        hg.create_label(t_key_frame, 'or write your key down here: (format: y g p)', 0, 0)
+        hg.create_label(t_key_frame, 'or write your key down here: (format: d n)', 0, 0)
         self.text_key = hg.create_text(t_key_frame, '', 2, 70, 1, 0)
 
     def render_output_frame(self):
@@ -86,8 +85,8 @@ class ElgamalDecryptForm(tk.Frame):
     def setup_key(self, key):
         used_key = {
             'private' : {
-                'x' : int(key[0]),
-                'p' : int(key[1])
+                'd' : int(key[0]),
+                'n' : int(key[1])
             }
         }
         return used_key
@@ -105,29 +104,8 @@ class ElgamalDecryptForm(tk.Frame):
         output_filename = self.output_name.get()
 
         try:
-            if (message_dir == '' and message_text == ''):
-                return
-            if (key_dir == '' and key_text == ''):
-                return
-            if (message_dir != '' and output_filename == ''):
-                return
-            
-            message = read_file(message_dir) if (message_dir != '') else message_text
-            key = read_file(key_dir) if (key_dir != '') else key_text
-            key = self.setup_key(key.split(' '))
-
-            elgamal = Elgamal(256, key)
-            results = elgamal.decrypt(message)
-            results = {**results, "file_output": output_filename, "message_dir": message_dir}
-
-            if (output_filename != ''):
-                output_filename = f"./output/decrypted/{output_filename}.txt"
-                write_file(output_filename, results["decrypted"])
-            
-            title = 'Elgamal Decryption'
-            tipe = 'elgamal_decryption'
-
-            self.controller.show_end_frame(title, tipe, results)
+            # Code goes here
+           return 1
         except Exception as e:
-            print("Error occured when decrypt using Elgamal!")
+            print("Error occured when decrypt using RSA!")
             print(e)
