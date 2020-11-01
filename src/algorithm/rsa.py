@@ -1,9 +1,6 @@
 from src.utils.math import *
 from src.utils.file import *
-import math
-import time
 from timeit import default_timer as timer
-
 
 class RSA():
     def __init__(self, num_bits, key):
@@ -47,10 +44,13 @@ class RSA():
         n = p1 * p2
         phin = (p1-1)*(p2-1)
         e = generate_e(phin, self.num_bits)
-        # k = getPrimeNbit(self.num_bits)
+        d = egcd(e, phin)[1]
+        d = d % phin
+        if (d < 0):
+            d += phin
 
         public_key = {'n': n, 'e': e}
-        private_key = {'d': egcd(e, phin)[1], 'n': n}
+        private_key = {'d': d, 'n': n}
 
         return {'public': public_key, 'private': private_key}
 
@@ -105,13 +105,13 @@ class RSA():
         write_file(filename, self.key[key_type])
 
 
-if (__name__ == "__main__"):
-    plaintext = "irfan"
-    rsa = RSA(256, '')
-    encrypted = rsa.encrypt(plaintext)
-    print('Hasil Enkripsi: ', encrypted["encrypted"])
-    print(encrypted["execution_time"])
+# if (__name__ == "__main__"):
+#     plaintext = "irfan sofyana putra"
+#     rsa = RSA(256, '')
+#     encrypted = rsa.encrypt(plaintext)
+#     print('Hasil Enkripsi: ', encrypted["encrypted"])
+#     print(encrypted["execution_time"])
 
-    decrypted = rsa.decrypt(encrypted["encrypted"])
-    print('Hasil Dekripsi: ', decrypted["decrypted"])
-    print(decrypted["execution_time"])
+#     decrypted = rsa.decrypt(encrypted["encrypted"])
+#     print('Hasil Dekripsi: ', decrypted["decrypted"])
+#     print(decrypted["execution_time"])
