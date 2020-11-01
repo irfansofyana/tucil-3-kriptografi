@@ -2,10 +2,11 @@ from src.utils.math import *
 from src.utils.file import *
 from timeit import default_timer as timer
 
+
 class RSA():
     def __init__(self, num_bits, key):
         self.num_bits = num_bits
-        self.key = self.generate_key()
+        self.key = key if (len(key) > 0) else self.generate_key()
 
     def encode(self, plaintext):
         bytes_array = bytearray(plaintext, 'utf-16')
