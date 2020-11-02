@@ -20,7 +20,16 @@ Tugas kecil 3: Implementasi Algoritma RSA, Elgamal, dan Diffie-Hellman
 
 <img src="static/screenshot/generate_key_result.PNG" alt="drawing" width="400" style="display:block; margin-left:auto; margin-right:auto;">
 
-## Instalasi
+## How to Use
+#### Option A: Executable
+
+Jalankan *executable* yang ada pada *root* folder bernama
+```
+app.exe
+```
+
+#### Option B: Installation
+
 1. Lakukan *clone* project ini dengan cara menggunakan perintah
     ```
     git clone https://github.com/irfansofyana/tucil-3-kriptografi.git
